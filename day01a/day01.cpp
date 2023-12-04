@@ -28,10 +28,11 @@ Consider your entire calibration document. What is the sum of all of the calibra
 
 #include <iostream>
 #include <fstream>
+#include <string>
 
 /// @brief Returns true if the char is a number
-/// @param myChar 
-/// @return 
+/// @param myChar
+/// @return
 bool isDigit(char myChar)
 {
     if (myChar >= '0' && myChar <= '9')
@@ -59,6 +60,31 @@ int main()
     std::string line;
     while (getline(myFile, line))
     {
-        // TODO
+        char firstDigit;
+        char lastDigit;
+
+        // find first digit
+        size_t lineIndex = 0;
+        while (!isDigit(line.at(lineIndex)))
+        {
+            lineIndex++;
+        }
+        firstDigit = line.at(lineIndex);
+        
+        // find last digit
+        lineIndex = line.length() - 1;
+        while (!isDigit(line.at(lineIndex)))
+        {
+            lineIndex--;
+        }
+        lastDigit = line.at(lineIndex);
+
+        std::string twoDigits {firstDigit, lastDigit};
+        
+        int twoDigitNumber = stoi(twoDigits);
+        sum += twoDigitNumber;
     }
+
+    std::cout << sum << std::endl;
+    
 }

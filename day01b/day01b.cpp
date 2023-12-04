@@ -29,6 +29,7 @@ Consider your entire calibration document. What is the sum of all of the calibra
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <map>
 
 /// @brief Returns true if the char is a number
 /// @param myChar
@@ -45,6 +46,21 @@ bool isDigit(char myChar)
 
 int main()
 {
+    std::map<std::string, int> fiveLetters;
+    fiveLetters["three"] = 3;
+    fiveLetters["seven"] = 7;
+    fiveLetters["eight"] = 8;
+
+    std::map<std::string, int> fourLetters;
+    fourLetters["four"] = 4;
+    fourLetters["five"] = 5;
+    fourLetters["nine"] = 9;
+
+    std::map<std::string, int> threeLetters;
+    threeLetters["one"] = 1;
+    threeLetters["two"] = 2;
+    threeLetters["six"] = 6;
+
     std::string filename = "puzzleInput.txt";
     std::ifstream myFile;
     myFile.open(filename);
@@ -63,14 +79,17 @@ int main()
         char firstDigit;
         char lastDigit;
 
-        // find first digit
+        std::cout << std::endl;
+        std::cout << line << std::endl;
+
+                // find first digit
         size_t lineIndex = 0;
         while (!isDigit(line.at(lineIndex)))
         {
             lineIndex++;
         }
         firstDigit = line.at(lineIndex);
-        
+
         // find last digit
         lineIndex = line.length() - 1;
         while (!isDigit(line.at(lineIndex)))
@@ -79,12 +98,180 @@ int main()
         }
         lastDigit = line.at(lineIndex);
 
-        std::string twoDigits {firstDigit, lastDigit};
-        
+        std::string twoDigitsOld{firstDigit, lastDigit};
+        std::cout << twoDigitsOld << std::endl;
+
+        // replace the spelled out words with digits
+        for (size_t index = 0; index < line.length(); index++)
+        {
+            // nine
+            if (line.at(index) == 'n')
+            {
+                if (index + 3 >= line.length())
+                {
+                    continue;
+                }
+
+                if (line.at(index + 1) == 'i' &&
+                    line.at(index + 2) == 'n' &&
+                    line.at(index + 3) == 'e' )
+                {
+                    line.replace(index, 4, "9   ");
+                }
+            }
+
+            // eight
+            if (line.at(index) == 'e')
+            {
+                if (index + 4 >= line.length())
+                {
+                    continue;
+                }
+
+                if (line.at(index + 1) == 'i' &&
+                    line.at(index + 2) == 'g' &&
+                    line.at(index + 3) == 'h' &&
+                    line.at(index + 4) == 't')
+                {
+                    line.replace(index, 5, "8    ");
+                }
+            }
+
+            // seven
+            if (line.at(index) == 's')
+            {
+                if (index + 4 >= line.length())
+                {
+                    continue;
+                }
+
+                if (line.at(index + 1) == 'e' &&
+                    line.at(index + 2) == 'v' &&
+                    line.at(index + 3) == 'e' &&
+                    line.at(index + 4) == 'n')
+                {
+                    line.replace(index, 5, "7    ");
+                }                
+            }
+
+            // six
+            if (line.at(index) == 's')
+            {
+                if (index + 2 >= line.length())
+                {
+                    continue;
+                }
+
+                if (line.at(index + 1) == 'i' &&
+                    line.at(index + 2) == 'x')
+                {
+                    line.replace(index, 3, "6  ");
+                }                
+            }
+
+            // 5
+            if (line.at(index) == 'f')
+            {
+                if (index + 3 >= line.length())
+                {
+                    continue;
+                }
+
+                if (line.at(index + 1) == 'i' &&
+                    line.at(index + 2) == 'v' &&
+                    line.at(index + 3) == 'e')
+                {
+                    line.replace(index, 4, "5   ");
+                }                
+            }
+
+            // 4
+            if (line.at(index) == 'f')
+            {
+                if (index + 3 >= line.length())
+                {
+                    continue;
+                }
+
+                if (line.at(index + 1) == 'o' &&
+                    line.at(index + 2) == 'u' &&
+                    line.at(index + 3) == 'r')
+                {
+                    line.replace(index, 4, "4   ");
+                }                
+            }
+
+            // three
+            if (line.at(index) == 't')
+            {
+                if (index + 4 >= line.length())
+                {
+                    continue;
+                }
+
+                if (line.at(index + 1) == 'h' &&
+                    line.at(index + 2) == 'r' &&
+                    line.at(index + 3) == 'e' &&
+                    line.at(index + 4) == 'e')
+                {
+                    line.replace(index, 5, "3    ");
+                }                
+            }
+
+            // 2
+            if (line.at(index) == 't')
+            {
+                if (index + 2 >= line.length())
+                {
+                    continue;
+                }
+
+                if (line.at(index + 1) == 'w' &&
+                    line.at(index + 2) == 'o')
+                {
+                    line.replace(index, 3, "2  ");
+                }                
+            }
+
+            // 1
+            if (line.at(index) == 'o')
+            {
+                if (index + 2 >= line.length())
+                {
+                    continue;
+                }
+
+                if (line.at(index + 1) == 'n' &&
+                    line.at(index + 2) == 'e')
+                {
+                    line.replace(index, 3, "1  ");
+                }                
+            }
+        }
+        std::cout << line << std::endl;
+
+        // find first digit
+        lineIndex = 0;
+        while (!isDigit(line.at(lineIndex)))
+        {
+            lineIndex++;
+        }
+        firstDigit = line.at(lineIndex);
+
+        // find last digit
+        lineIndex = line.length() - 1;
+        while (!isDigit(line.at(lineIndex)))
+        {
+            lineIndex--;
+        }
+        lastDigit = line.at(lineIndex);
+
+        std::string twoDigits{firstDigit, lastDigit};
+        std::cout << twoDigits << std::endl;
+
         int twoDigitNumber = stoi(twoDigits);
         sum += twoDigitNumber;
     }
 
     std::cout << sum << std::endl;
-    
 }

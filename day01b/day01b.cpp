@@ -44,6 +44,17 @@ bool isDigit(char myChar)
     return false;
 }
 
+char findFirst(std::string line)
+{
+    for (size_t i = 0; i < line.size(); i++)
+    {
+        if (isDigit(line.at(i)))
+        {
+            return line.at(i);
+        }
+    }
+}
+
 int main()
 {
     std::map<std::string, int> fiveLetters;
@@ -72,6 +83,7 @@ int main()
     }
 
     int sum = 0;
+    int sumold = 0;
 
     std::string line;
     while (getline(myFile, line))
@@ -79,10 +91,12 @@ int main()
         char firstDigit;
         char lastDigit;
 
-        std::cout << std::endl;
-        std::cout << line << std::endl;
+        //       std::cout << std::endl;
+        //      std::cout << line << std::endl;
 
-                // find first digit
+        std::string oldLine(line);
+        int lineLength = line.length();
+        // find first digit
         size_t lineIndex = 0;
         while (!isDigit(line.at(lineIndex)))
         {
@@ -99,11 +113,67 @@ int main()
         lastDigit = line.at(lineIndex);
 
         std::string twoDigitsOld{firstDigit, lastDigit};
-        std::cout << twoDigitsOld << std::endl;
+        sumold += stoi(twoDigitsOld);
+        // std::cout << twoDigitsOld << std::endl;
+
+        if (line.at(0) == 'v')
+        {
+            std::string hello = "hello";
+        }
 
         // replace the spelled out words with digits
         for (size_t index = 0; index < line.length(); index++)
         {
+            char curChar = line.at(index);
+
+            // 2
+            if (line.at(index) == 't')
+            {
+                if (index + 2 >= line.length())
+                {
+                    continue;
+                }
+
+                if (line.at(index + 1) == 'w' &&
+                    line.at(index + 2) == 'o')
+                {
+                    line.replace(index, 3, "2wo");
+                    continue;
+                }
+            }
+
+            // 1
+            if (line.at(index) == 'o')
+            {
+                if (index + 2 >= line.length())
+                {
+                    continue;
+                }
+
+                if (line.at(index + 1) == 'n' &&
+                    line.at(index + 2) == 'e')
+                {
+                    line.replace(index, 3, "1ne");
+                    continue;
+                }
+            }
+
+            // six
+            if (line.at(index) == 's')
+            {
+                if (index + 2 >= line.length())
+                {
+                    continue;
+                }
+
+                if (line.at(index + 1) == 'i' &&
+                    line.at(index + 2) == 'x')
+                {
+                    line.replace(index, 3, "6ix");
+                    continue;
+                }
+            }
+
             // nine
             if (line.at(index) == 'n')
             {
@@ -114,9 +184,44 @@ int main()
 
                 if (line.at(index + 1) == 'i' &&
                     line.at(index + 2) == 'n' &&
-                    line.at(index + 3) == 'e' )
+                    line.at(index + 3) == 'e')
                 {
-                    line.replace(index, 4, "9   ");
+                    line.replace(index, 4, "9ine");
+                    continue;
+                }
+            }
+
+            // 5
+            if (line.at(index) == 'f')
+            {
+                if (index + 3 >= line.length())
+                {
+                    continue;
+                }
+
+                if (line.at(index + 1) == 'i' &&
+                    line.at(index + 2) == 'v' &&
+                    line.at(index + 3) == 'e')
+                {
+                    line.replace(index, 4, "5ive");
+                    continue;
+                }
+            }
+
+            // 4
+            if (line.at(index) == 'f')
+            {
+                if (index + 3 >= line.length())
+                {
+                    continue;
+                }
+
+                if (line.at(index + 1) == 'o' &&
+                    line.at(index + 2) == 'u' &&
+                    line.at(index + 3) == 'r')
+                {
+                    line.replace(index, 4, "4our");
+                    continue;
                 }
             }
 
@@ -133,7 +238,8 @@ int main()
                     line.at(index + 3) == 'h' &&
                     line.at(index + 4) == 't')
                 {
-                    line.replace(index, 5, "8    ");
+                    line.replace(index, 5, "8ight");
+                    continue;
                 }
             }
 
@@ -150,55 +256,9 @@ int main()
                     line.at(index + 3) == 'e' &&
                     line.at(index + 4) == 'n')
                 {
-                    line.replace(index, 5, "7    ");
-                }                
-            }
-
-            // six
-            if (line.at(index) == 's')
-            {
-                if (index + 2 >= line.length())
-                {
+                    line.replace(index, 5, "7even");
                     continue;
                 }
-
-                if (line.at(index + 1) == 'i' &&
-                    line.at(index + 2) == 'x')
-                {
-                    line.replace(index, 3, "6  ");
-                }                
-            }
-
-            // 5
-            if (line.at(index) == 'f')
-            {
-                if (index + 3 >= line.length())
-                {
-                    continue;
-                }
-
-                if (line.at(index + 1) == 'i' &&
-                    line.at(index + 2) == 'v' &&
-                    line.at(index + 3) == 'e')
-                {
-                    line.replace(index, 4, "5   ");
-                }                
-            }
-
-            // 4
-            if (line.at(index) == 'f')
-            {
-                if (index + 3 >= line.length())
-                {
-                    continue;
-                }
-
-                if (line.at(index + 1) == 'o' &&
-                    line.at(index + 2) == 'u' &&
-                    line.at(index + 3) == 'r')
-                {
-                    line.replace(index, 4, "4   ");
-                }                
             }
 
             // three
@@ -214,41 +274,12 @@ int main()
                     line.at(index + 3) == 'e' &&
                     line.at(index + 4) == 'e')
                 {
-                    line.replace(index, 5, "3    ");
-                }                
-            }
-
-            // 2
-            if (line.at(index) == 't')
-            {
-                if (index + 2 >= line.length())
-                {
+                    line.replace(index, 5, "3hree");
                     continue;
                 }
-
-                if (line.at(index + 1) == 'w' &&
-                    line.at(index + 2) == 'o')
-                {
-                    line.replace(index, 3, "2  ");
-                }                
-            }
-
-            // 1
-            if (line.at(index) == 'o')
-            {
-                if (index + 2 >= line.length())
-                {
-                    continue;
-                }
-
-                if (line.at(index + 1) == 'n' &&
-                    line.at(index + 2) == 'e')
-                {
-                    line.replace(index, 3, "1  ");
-                }                
             }
         }
-        std::cout << line << std::endl;
+        //        std::cout << line << std::endl;
 
         // find first digit
         lineIndex = 0;
@@ -267,11 +298,25 @@ int main()
         lastDigit = line.at(lineIndex);
 
         std::string twoDigits{firstDigit, lastDigit};
-        std::cout << twoDigits << std::endl;
-
+        // std::cout << twoDigits << std::endl;
+        int twoDigitNumberOld = stoi(twoDigitsOld);
         int twoDigitNumber = stoi(twoDigits);
+
+        if (twoDigitNumberOld != twoDigitNumber)
+        {
+            std::cout << oldLine << "\t" << twoDigitsOld << std::endl;
+            std::cout << line << "\t" << twoDigits << std::endl;
+            std::cout << oldLine << "\t" << twoDigits << std::endl;
+            if (twoDigitNumber == 18)
+            {
+                // std::string tempInput;
+                // std::cin >> tempInput;
+            }
+        }
+
         sum += twoDigitNumber;
     }
 
-    std::cout << sum << std::endl;
+    std::cout << "old sum: " << sumold << std::endl;
+    std::cout << "sum    : " << sum << std::endl;
 }

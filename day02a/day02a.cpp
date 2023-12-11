@@ -36,6 +36,10 @@ Determine which games would have been possible if the bag had been loaded with o
 #include <vector>
 #include <bits/stdc++.h>
 
+#include "game.h"
+
+
+
 int main()
 {
     std::string filename = "test.txt";
@@ -50,17 +54,18 @@ int main()
 
     int sum = 0;
 
+    std::vector<Game> games;
     std::string line;
+
     while (getline(myFile, line))
     {
-        std::stringstream mystream(line);
+        Game currentGame(line);
+        games.push_back(currentGame);
+    }
 
-        std::vector<std::string> currentLineElements;
-        std::string currentToken;
-        while (getline(mystream, currentToken, ':'))
-        {
-            std::cout << currentToken << std::endl;
-        }
+    for (Game g : games)
+    {
+        std::cout << g.getGameNumber() << std::endl;
     }
 
     std::cout << sum << std::endl;

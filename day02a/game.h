@@ -30,6 +30,14 @@ int getGameNumber();
 /// @return true if the game was possible, false if not
 bool isPossible(int, int, int);
 
+/// @brief *Invariant* the order of the numbers is "red", "green", "blue" RGB
+/// @return returns a list of the minimum number of cubes
+std::vector<int> minimumNumberOfCubes();
+
+/// @brief returns the min cubes multiplied together
+/// @return 
+int powerOfGame();
+
 };
 
 

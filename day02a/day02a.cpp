@@ -42,7 +42,7 @@ Determine which games would have been possible if the bag had been loaded with o
 
 int main()
 {
-    std::string filename = "test.txt";
+    std::string filename = "input.txt";
     std::ifstream myFile;
     myFile.open(filename);
 
@@ -65,7 +65,19 @@ int main()
 
     for (Game g : games)
     {
-        std::cout << g.getGameNumber() << std::endl;
+        if (g.isPossible(12, 13, 14)) {
+            sum += g.getGameNumber();
+        }
+    }
+
+    std::cout << sum << std::endl;
+
+    sum = 0;
+
+    for (Game g : games)
+    {
+        sum += g.powerOfGame();
+        std::cout << g.powerOfGame() << std::endl;
     }
 
     std::cout << sum << std::endl;

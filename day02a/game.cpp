@@ -10,7 +10,7 @@ Game::Game(std::string line)
     while (getline(mystream, currentToken, ':'))
     {
         currentLineElements.push_back(currentToken);
-        std::cout << currentToken << std::endl;
+  //      std::cout << currentToken << std::endl;
     }
 
     std::string gameNumberString = currentLineElements.front();
@@ -75,5 +75,74 @@ std::string Game::removeCommas(std::string oldString)
 
 bool Game::isPossible(int redmax, int greenmax, int bluemax)
 {
+    for (std::map<std::string, int> currentRound : listOfRounds)
+    {
+        if (currentRound.contains("red"))
+        {
+            if (currentRound["red"] > redmax)
+            {
+                return false;
+            }
+        }
+        if (currentRound.contains("green"))
+        {
+            if (currentRound["green"] > greenmax)
+            {
+                return false;
+            }
+        }
+        if (currentRound.contains("blue"))
+        {
+            if (currentRound["blue"] > bluemax)
+            {
+                return false;
+            }
+        }
+    }
+
+    return true;
+}
+
+std::vector<int> Game::minimumNumberOfCubes()
+{
+    std::vector<int> minCubes;
+    minCubes.push_back(0);
+    minCubes.push_back(0);
+    minCubes.push_back(0);
+
+    for (std::map<std::string, int> currentRound : listOfRounds)
+    {
+        if (currentRound.contains("red"))
+        {
+            if (minCubes[0] < currentRound["red"])
+            {
+                minCubes[0] = currentRound["red"];
+            }
+        }
+
+        if (currentRound.contains("green"))
+        {
+            if (minCubes[1] < currentRound["green"])
+            {
+                minCubes[1] = currentRound["green"];
+            }
+        }
+
+        if (currentRound.contains("blue"))
+        {
+            if (minCubes[2] < currentRound["blue"])
+            {
+                minCubes[2] = currentRound["blue"];
+            }
+        }
+    }
+
+    return minCubes;
+}
+
+int Game::powerOfGame() {
+    std::vector<int> minCubes = this->minimumNumberOfCubes();
+
+    return minCubes[0] * minCubes[1] * minCubes[2];
     
 }
